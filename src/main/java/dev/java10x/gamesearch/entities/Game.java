@@ -1,13 +1,12 @@
 package dev.java10x.gamesearch.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -18,11 +17,18 @@ import java.time.LocalDateTime;
 @Table(name = "game")
 public class Game {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 100)
     private String title;
 
+    @Column(length = 100)
     private String genre;
+
+    @Column(name = "release_date")
+    private LocalDateTime releaseDate;
 
     private double rating;
 
@@ -32,9 +38,6 @@ public class Game {
 
     private String publisher;
 
-    @Column(name = "release_date")
-    private LocalDateTime releaseDate;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -42,4 +45,16 @@ public class Game {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @ManyToMany
+    @JoinTable(name = "game_category",
+    joinColumns = @JoinColumn(name = "game_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
+
+    @ManyToMany
+    @JoinTable(name = "game_platform",
+    joinColumns = @JoinColumn(name = "game_id"),
+    inverseJoinColumns = @JoinColumn(name = "platform_id"))
+    private List<Platform> platforms;
 }
