@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Game {
     private String genre;
 
     @Column(name = "release_date")
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
 
     private double rating;
 
