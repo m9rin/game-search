@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/gamesearch/platform")
@@ -50,7 +51,11 @@ public class PlatformController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        platformService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        Optional<Platform> optPlatform = platformService.getById(id);
+        if (optPlatform.isPresent()) {
+            platformService.delete(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

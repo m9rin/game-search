@@ -3,6 +3,7 @@ package dev.java10x.gamesearch.controllers;
 import dev.java10x.gamesearch.controllers.request.CategoryRequest;
 import dev.java10x.gamesearch.controllers.response.CategoryResponse;
 import dev.java10x.gamesearch.entities.Category;
+import dev.java10x.gamesearch.entities.Platform;
 import dev.java10x.gamesearch.mapper.CategoryMapper;
 import dev.java10x.gamesearch.services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +37,8 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponse> findById(@PathVariable Long id) {
-        return categoryService.findById(id)
+    public ResponseEntity<CategoryResponse> getById(@PathVariable Long id) {
+        return categoryService.getById(id)
                 .map(category -> ResponseEntity.ok(CategoryMapper.toCategoryResponse(category)))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -51,8 +52,12 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        categoryService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        Optional<Category> optCategory = categoryService.getById(id);
+        if (optCategory.isPresent()) {
+            categoryService.delete(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

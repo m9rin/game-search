@@ -22,7 +22,7 @@ public class CategoryService {
         return repository.findAll();
     }
 
-    public Optional<Category> findById(Long id) {
+    public Optional<Category> getById(Long id) {
         return repository.findById(id);
     }
 
