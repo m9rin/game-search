@@ -5,6 +5,7 @@ import dev.java10x.gamesearch.controllers.response.GameResponse;
 import dev.java10x.gamesearch.entities.Game;
 import dev.java10x.gamesearch.mapper.GameMapper;
 import dev.java10x.gamesearch.services.GameService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class GameController {
     private final GameService gameService;
 
     @PostMapping
-    public ResponseEntity<GameResponse> save(@RequestBody GameRequest request) {
+    public ResponseEntity<GameResponse> save(@Valid @RequestBody GameRequest request) {
         Game game = GameMapper.toGame(request);
         Game saved = gameService.save(game);
         return ResponseEntity.status(HttpStatus.CREATED).body(GameMapper.toGameResponse(saved));
@@ -57,7 +58,7 @@ public class GameController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GameResponse> update(@PathVariable Long id, @RequestBody GameRequest request) {
+    public ResponseEntity<GameResponse> update(@PathVariable Long id, @Valid @RequestBody GameRequest request) {
         return gameService.update(id, GameMapper.toGame(request))
                 .map(game -> ResponseEntity.ok(GameMapper.toGameResponse(game)))
                 .orElse(ResponseEntity.notFound().build());

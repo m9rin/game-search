@@ -5,6 +5,7 @@ import dev.java10x.gamesearch.controllers.response.PlatformResponse;
 import dev.java10x.gamesearch.entities.Platform;
 import dev.java10x.gamesearch.mapper.PlatformMapper;
 import dev.java10x.gamesearch.services.PlatformService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class PlatformController {
     private final PlatformService platformService;
 
     @PostMapping
-    public ResponseEntity<PlatformResponse> save(@RequestBody PlatformRequest request) {
+    public ResponseEntity<PlatformResponse> save(@Valid @RequestBody PlatformRequest request) {
         Platform platform = PlatformMapper.toPlatform(request);
         Platform saved = platformService.save(platform);
         return ResponseEntity.status(HttpStatus.CREATED).body(PlatformMapper.toPlatformResponse(saved));
@@ -43,7 +44,7 @@ public class PlatformController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlatformResponse> update(@PathVariable Long id, @RequestBody PlatformRequest request) {
+    public ResponseEntity<PlatformResponse> update(@PathVariable Long id, @Valid @RequestBody PlatformRequest request) {
         return platformService.update(id, PlatformMapper.toPlatform(request))
                 .map(platform -> ResponseEntity.ok(PlatformMapper.toPlatformResponse(platform)))
                 .orElse(ResponseEntity.notFound().build());

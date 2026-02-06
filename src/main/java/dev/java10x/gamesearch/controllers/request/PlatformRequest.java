@@ -1,4 +1,6 @@
 package dev.java10x.gamesearch.controllers.request;
 
-public record PlatformRequest(String name) {
+import jakarta.validation.constraints.NotEmpty;
+
+public record PlatformRequest(@NotEmpty(message = "name is required") String name) {
 }
