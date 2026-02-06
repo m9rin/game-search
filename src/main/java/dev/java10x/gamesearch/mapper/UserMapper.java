@@ -9,7 +9,6 @@ import lombok.experimental.UtilityClass;
 public class UserMapper {
 
     public static User toUser(UserRequest request) {
-
         return User
                 .builder()
                 .name(request.name())
@@ -19,7 +18,6 @@ public class UserMapper {
     }
 
     public static UserResponse toUserResponse(User user) {
-
         return UserResponse
                 .builder()
                 .id(user.getId())
