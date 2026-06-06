@@ -14,17 +14,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryDatabaseGateway implements CategoryGateway {
 
-    private final CategoryJpaRepository repository;
+    private final CategoryJpaRepository categoryJpaRepository;
 
     @Override
     public Category save(Category category) {
         return CategoryPersistenceMapper.toDomain(
-                repository.save(CategoryPersistenceMapper.toEntity(category)));
+                categoryJpaRepository.save(CategoryPersistenceMapper.toEntity(category)));
     }
 
     @Override
     public List<Category> findAll() {
-        return repository.findAll()
+        return categoryJpaRepository.findAll()
                 .stream()
                 .map(CategoryPersistenceMapper::toDomain)
                 .toList();
@@ -32,12 +32,12 @@ public class CategoryDatabaseGateway implements CategoryGateway {
 
     @Override
     public Optional<Category> findById(Long id) {
-        return repository.findById(id)
+        return categoryJpaRepository.findById(id)
                 .map(CategoryPersistenceMapper::toDomain);
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        categoryJpaRepository.deleteById(id);
     }
 }

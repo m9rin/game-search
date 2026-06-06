@@ -35,7 +35,7 @@ public class CategoryUseCaseTest {
 
         @Override
         public List<Category> findAll() {
-            return categories;
+            return List.copyOf(categories);
         }
 
         @Override

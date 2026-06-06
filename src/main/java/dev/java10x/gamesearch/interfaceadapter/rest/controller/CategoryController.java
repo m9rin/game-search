@@ -18,19 +18,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController implements CategoryControllerDocs {
 
-    private final CategoryUseCase useCase;
+    private final CategoryUseCase categoryUseCase;
 
     @Override
     @PostMapping
     public ResponseEntity<CategoryResponse> save(@Valid @RequestBody CategoryRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(CategoryRestMapper.toResponse(useCase.create(request.name())));
+                .body(CategoryRestMapper.toResponse(categoryUseCase.create(request.name())));
     }
 
     @Override
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> getAll() {
-        return ResponseEntity.ok(useCase.findAll()
+        return ResponseEntity.ok(categoryUseCase.findAll()
                 .stream()
                 .map(CategoryRestMapper::toResponse)
                 .toList());
@@ -39,7 +39,7 @@ public class CategoryController implements CategoryControllerDocs {
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> getById(@PathVariable Long id) {
-        return useCase.findById(id)
+        return categoryUseCase.findById(id)
                 .map(category -> ResponseEntity.ok(CategoryRestMapper.toResponse(category)))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -47,7 +47,7 @@ public class CategoryController implements CategoryControllerDocs {
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<CategoryResponse> update(@PathVariable Long id, @Valid @RequestBody CategoryRequest request) {
-        return useCase.update(id, request.name())
+        return categoryUseCase.update(id, request.name())
                 .map(category -> ResponseEntity.ok(CategoryRestMapper.toResponse(category)))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -55,7 +55,7 @@ public class CategoryController implements CategoryControllerDocs {
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (useCase.delete(id)) {
+        if (categoryUseCase.delete(id)) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         return ResponseEntity.notFound().build();
