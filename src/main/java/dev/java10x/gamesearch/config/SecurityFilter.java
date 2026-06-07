@@ -1,6 +1,7 @@
 package dev.java10x.gamesearch.config;
 
 import dev.java10x.gamesearch.application.gateway.TokenVerifierGateway;
+import dev.java10x.gamesearch.infrastructure.security.JWTUserData;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

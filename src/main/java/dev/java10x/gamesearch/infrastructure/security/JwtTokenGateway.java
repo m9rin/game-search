@@ -6,7 +6,6 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import dev.java10x.gamesearch.application.gateway.TokenGateway;
 import dev.java10x.gamesearch.application.gateway.TokenVerifierGateway;
-import dev.java10x.gamesearch.config.JWTUserData;
 import dev.java10x.gamesearch.domain.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

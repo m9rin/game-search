@@ -1,4 +1,4 @@
-package dev.java10x.gamesearch.config;
+package dev.java10x.gamesearch.infrastructure.security;
 
 import lombok.Builder;
 
