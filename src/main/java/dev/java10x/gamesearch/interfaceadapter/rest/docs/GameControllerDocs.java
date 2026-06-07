@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface GameControllerDocs {
-    @Operation(summary = "Create a new game")
+    @Operation(
+            summary = "Create a new game",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Game created successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
@@ -24,7 +26,9 @@ public interface GameControllerDocs {
     })
     ResponseEntity<GameResponse> save(@Valid @RequestBody GameRequest request);
 
-    @Operation(summary = "List all games")
+    @Operation(
+            summary = "List all games",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Games retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
