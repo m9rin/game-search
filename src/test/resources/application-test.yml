@@ -11,3 +11,7 @@ spring:
 
   flyway:
     enabled: true
+
+gamesearch:
+  security:
+    secret: test-secret
