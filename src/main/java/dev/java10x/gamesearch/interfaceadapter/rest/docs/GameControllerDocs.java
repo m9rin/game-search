@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,9 @@ public interface GameControllerDocs {
     })
     ResponseEntity<List<GameResponse>> getAll();
 
-    @Operation(summary = "Get game by id")
+    @Operation(
+            summary = "Get game by id",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Game found"),
             @ApiResponse(responseCode = "404", description = "Game not found"),
@@ -41,7 +44,9 @@ public interface GameControllerDocs {
             @PathVariable Long id
     );
 
-    @Operation(summary = "Search games by category")
+    @Operation(
+            summary = "Search games by category",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Games retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid query parameter"),
@@ -52,7 +57,9 @@ public interface GameControllerDocs {
             @RequestParam Long category
     );
 
-    @Operation(summary = "Search games by platform")
+    @Operation(
+            summary = "Search games by platform",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Games retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid query parameter"),
@@ -63,7 +70,9 @@ public interface GameControllerDocs {
             @RequestParam Long platform
     );
 
-    @Operation(summary = "Update a game")
+    @Operation(
+            summary = "Update a game",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Game updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
@@ -76,7 +85,9 @@ public interface GameControllerDocs {
             @Valid @RequestBody GameRequest request
     );
 
-    @Operation(summary = "Delete a game")
+    @Operation(
+            summary = "Delete a game",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Game deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Game not found"),
