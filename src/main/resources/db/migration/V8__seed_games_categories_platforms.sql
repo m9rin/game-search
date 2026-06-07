@@ -34,26 +34,122 @@ INSERT INTO game (title, genre, release_date, rating, description, developer, pu
 ('Super Mario Odyssey', 'Platformer', '2017-10-27', 9.6, '3D platform adventure.', 'Nintendo', 'Nintendo', now(), now()),
 ('Civilization VI', 'Strategy', '2016-10-21', 8.8, 'Turn-based strategy game.', 'Firaxis Games', '2K', now(), now());
 
-INSERT INTO game_category (game_id, category_id) VALUES
-(1, 3), (1, 2),
-(2, 1), (2, 2),
-(3, 2), (3, 10),
-(4, 1), (4, 3),
-(5, 6), (5, 7),
-(6, 7), (6, 3),
-(7, 8), (7, 1),
-(8, 9), (8, 2),
-(9, 10), (9, 2),
-(10, 4), (10, 7);
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'The Witcher 3: Wild Hunt'
+  AND c.name IN ('RPG', 'Adventure');
 
-INSERT INTO game_platform (game_id, platform_id) VALUES
-(1, 1), (1, 2), (1, 3), (1, 7),
-(2, 2), (2, 5), (2, 1),
-(3, 4),
-(4, 1), (4, 2), (4, 3),
-(5, 1), (5, 3), (5, 6),
-(6, 1), (6, 4), (6, 8), (6, 9),
-(7, 1), (7, 2), (7, 3),
-(8, 1), (8, 7), (8, 10),
-(9, 4),
-(10, 1), (10, 4), (10, 10);
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'God of War'
+  AND c.name IN ('Action', 'Adventure');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'The Legend of Zelda: Breath of the Wild'
+  AND c.name IN ('Adventure', 'Platformer');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'Elden Ring'
+  AND c.name IN ('Action', 'RPG');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'Forza Horizon 5'
+  AND c.name IN ('Racing', 'Simulation');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'Stardew Valley'
+  AND c.name IN ('Simulation', 'RPG');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'Resident Evil 4 Remake'
+  AND c.name IN ('Horror', 'Action');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'Portal 2'
+  AND c.name IN ('Puzzle', 'Adventure');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'Super Mario Odyssey'
+  AND c.name IN ('Platformer', 'Adventure');
+
+INSERT INTO game_category (game_id, category_id)
+SELECT g.id, c.id
+FROM game g, category c
+WHERE g.title = 'Civilization VI'
+  AND c.name IN ('Strategy', 'Simulation');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'The Witcher 3: Wild Hunt'
+  AND p.name IN ('PC', 'PlayStation 5', 'Xbox Series X', 'Steam Deck');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'God of War'
+  AND p.name IN ('PC', 'PlayStation 5', 'PlayStation 4');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'The Legend of Zelda: Breath of the Wild'
+  AND p.name IN ('Nintendo Switch');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'Elden Ring'
+  AND p.name IN ('PC', 'PlayStation 5', 'Xbox Series X');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'Forza Horizon 5'
+  AND p.name IN ('PC', 'Xbox Series X', 'Xbox One');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'Stardew Valley'
+  AND p.name IN ('PC', 'Nintendo Switch', 'Android', 'iOS');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'Resident Evil 4 Remake'
+  AND p.name IN ('PC', 'PlayStation 5', 'Xbox Series X');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'Portal 2'
+  AND p.name IN ('PC', 'Steam Deck', 'macOS');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'Super Mario Odyssey'
+  AND p.name IN ('Nintendo Switch');
+
+INSERT INTO game_platform (game_id, platform_id)
+SELECT g.id, p.id
+FROM game g, platform p
+WHERE g.title = 'Civilization VI'
+  AND p.name IN ('PC', 'Nintendo Switch', 'macOS');
