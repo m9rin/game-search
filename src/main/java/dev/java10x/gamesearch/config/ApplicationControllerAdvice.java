@@ -1,6 +1,9 @@
 package dev.java10x.gamesearch.config;
 
-import dev.java10x.gamesearch.exceptions.UsernameOrPasswordInvalidException;
+import dev.java10x.gamesearch.domain.exception.CategoryNotFoundException;
+import dev.java10x.gamesearch.domain.exception.InvalidCredentialsException;
+import dev.java10x.gamesearch.domain.exception.PlatformNotFoundException;
+import dev.java10x.gamesearch.domain.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,9 +17,27 @@ import java.util.Map;
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
 
-    @ExceptionHandler(UsernameOrPasswordInvalidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleNotFoundException(UsernameOrPasswordInvalidException e) {
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String handleInvalidCredentialsException(InvalidCredentialsException e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String handleUserAlreadyExistsException(UserAlreadyExistsException e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleCategoryNotFoundException(CategoryNotFoundException e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(PlatformNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handlePlatformNotFoundException(PlatformNotFoundException e) {
         return e.getMessage();
     }
 

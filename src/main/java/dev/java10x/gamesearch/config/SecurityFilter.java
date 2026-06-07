@@ -1,5 +1,6 @@
 package dev.java10x.gamesearch.config;
 
+import dev.java10x.gamesearch.application.gateway.TokenVerifierGateway;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
 
-    private final TokenService tokenService;
+    private final TokenVerifierGateway tokenVerifierGateway;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -26,7 +27,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (Strings.isNotEmpty(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring("Bearer ".length());
 
-            Optional<JWTUserData> optJwtUserData = tokenService.verifyToken(token);
+            Optional<JWTUserData> optJwtUserData = tokenVerifierGateway.verifyToken(token);
             if (optJwtUserData.isPresent()) {
                 JWTUserData userData = optJwtUserData.get();
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userData, null, null);
