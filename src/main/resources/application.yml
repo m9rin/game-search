@@ -20,4 +20,4 @@ springdoc:
 
 gamesearch:
   security:
-    secret: "secret-word"
+    secret: "${JWT_SECRET:secret-word}"
